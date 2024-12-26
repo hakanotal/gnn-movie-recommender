@@ -1,0 +1,4 @@
+venv/
+posters/
+*.ipynb
+__pycache__/
