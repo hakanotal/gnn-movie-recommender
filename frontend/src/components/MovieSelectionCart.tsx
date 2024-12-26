@@ -1,8 +1,6 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Spinner from "./Spinner";
 
 interface SelectedMovie {
   id: number;
@@ -20,7 +18,6 @@ export default function MovieSelectionCart({
   onRemoveMovie,
 }: MovieSelectionCartProps) {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleGetRecommendations = () => {
     const movieIds = selectedMovies.map((movie) => movie.id).join(",");
@@ -71,7 +68,7 @@ export default function MovieSelectionCart({
           </ul>
           <button
             onClick={handleGetRecommendations}
-            disabled={selectedMovies.length < 5 || isLoading}
+            disabled={selectedMovies.length < 5}
             className={`
               relative w-full py-4 px-6 rounded-lg
               bg-gradient-to-r from-blue-600 to-blue-500
@@ -92,32 +89,23 @@ export default function MovieSelectionCart({
 
             {/* Button content */}
             <div className="relative flex items-center justify-center gap-2">
-              {isLoading ? (
-                <>
-                  <Spinner className="h-4 w-4" />
-                  <span>Finding Perfect Movies...</span>
-                </>
-              ) : (
-                <>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <span>
-                    {selectedMovies.length === 5
-                      ? "Discover Your Perfect Movies!"
-                      : `Select ${5 - selectedMovies.length} More Movies`}
-                  </span>
-                </>
-              )}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <span>
+                {selectedMovies.length === 5
+                  ? "Discover Your Perfect Movies!"
+                  : `Select ${5 - selectedMovies.length} More Movies`}
+              </span>
             </div>
           </button>
         </>

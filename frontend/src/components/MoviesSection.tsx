@@ -6,7 +6,6 @@ import Pagination from "./Pagination";
 import YearFilter from "./YearFilter";
 import MovieSelectionCart from "./MovieSelectionCart";
 import SearchBox from "./SearchBox";
-import { debounce } from "@/utils/debounce";
 import Spinner from "./Spinner";
 
 interface Movie {
@@ -28,9 +27,6 @@ interface SelectedMovie {
   id: number;
   title: string;
 }
-
-// Create debounced search function outside component
-const debouncedFetch = debounce((callback: () => void) => callback(), 300);
 
 export default function MoviesSection() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -83,7 +79,7 @@ export default function MoviesSection() {
     (term: string) => {
       setSearchTerm(term);
       setCurrentPage(1);
-      debouncedFetch(fetchMovies);
+      fetchMovies();
     },
     [fetchMovies]
   );
@@ -133,12 +129,12 @@ export default function MoviesSection() {
             <SearchBox searchTerm={searchTerm} onSearch={handleSearch} />
           </div>
           <div className="flex justify-center w-full pt-4 bg-gray-800/50 rounded-lg">
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-              />
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          </div>
         </div>
 
         {loading ? (

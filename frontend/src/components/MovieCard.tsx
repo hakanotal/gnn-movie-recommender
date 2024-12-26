@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
+import Image from "next/image";
 
 interface MovieCardProps {
   id: number;
@@ -34,10 +35,13 @@ export default function MovieCard({
     const fetchPoster = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/movies/${id}/poster`
+          `${process.env.NEXT_PUBLIC_API_URL}/movies/${id}/poster`
         );
         if (response.ok) {
           const blob = await response.blob();
+          if (posterUrl) {
+            URL.revokeObjectURL(posterUrl);
+          }
           const url = URL.createObjectURL(blob);
           setPosterUrl(url);
         }
@@ -114,10 +118,12 @@ export default function MovieCard({
             <Spinner className="h-8 w-8" />
           </div>
         ) : posterUrl ? (
-          <img
+          <Image
             src={posterUrl}
             alt={`${title} poster`}
-            className="absolute inset-0 w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
           <div className="absolute inset-0 bg-gray-700 flex items-center justify-center">

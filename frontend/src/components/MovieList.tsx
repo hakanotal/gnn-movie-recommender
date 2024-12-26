@@ -9,7 +9,7 @@ interface Movie {
 }
 
 export default function MovieList() {
-  const [recommendations, setRecommendations] = useState<Movie[]>([]);
+  const [recommendations] = useState<Movie[]>([]);
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
