@@ -15,7 +15,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "https://your-vercel-domain.vercel.app"  # Add your Vercel domain
+        "https://gnn-movie-recommender.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],

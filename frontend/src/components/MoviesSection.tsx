@@ -54,7 +54,13 @@ export default function MoviesSection() {
         : "";
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/movies?skip=${skip}&limit=${ITEMS_PER_PAGE}${yearParam}${searchParam}`
+        `${process.env.NEXT_PUBLIC_API_URL}/movies?skip=${skip}&limit=${ITEMS_PER_PAGE}${yearParam}${searchParam}`,
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
       );
 
       if (!response.ok) {
