@@ -40,8 +40,8 @@ export default function MoviesSection() {
   const [searchTerm, setSearchTerm] = useState("");
 
   // You might want to fetch this from the backend or hardcode a range
-  const availableYears = Array.from({ length: 2024 - 1900 + 1 }, (_, i) =>
-    (1900 + i).toString()
+  const availableYears = Array.from({ length: 2018 - 1902 + 1 }, (_, i) =>
+    (1902 + i).toString()
   ).reverse();
 
   const fetchMovies = useCallback(async () => {
@@ -54,13 +54,7 @@ export default function MoviesSection() {
         : "";
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/movies?skip=${skip}&limit=${ITEMS_PER_PAGE}${yearParam}${searchParam}`,
-        {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-        }
+        `${process.env.NEXT_PUBLIC_API_URL}/movies?skip=${skip}&limit=${ITEMS_PER_PAGE}${yearParam}${searchParam}`
       );
 
       if (!response.ok) {
