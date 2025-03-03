@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-from recommender_inference import recommend_movies_for_user
+from recommender_inference import RecommenderEngine
 from database import MovieDB, get_db
 
 app = FastAPI()
@@ -155,7 +155,8 @@ def get_recommendations(req: RecommendationRequest):
     }
     """
     # Generate top-K recommendations
-    top_recs = recommend_movies_for_user(
+    engine = RecommenderEngine()
+    top_recs = engine.recommend_movies_for_user(
         known_movie_ids=req.known_movies,
         topK=req.top_k
     )

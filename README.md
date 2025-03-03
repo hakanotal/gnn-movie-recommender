@@ -1,3 +1,10 @@
+## Movie Recommendation App
+
+### Backend
+
+### Frontend
+
+
 ## TODO
 
 - fix default poster
